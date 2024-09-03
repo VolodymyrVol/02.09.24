@@ -1,31 +1,6 @@
 #include <iostream>
+#include <string>
 using namespace std;
-
-class Laptop
-{
-	string name;
-	Mouse* mouse; //агрегирование
-	CPU cpu; //композиция
-	GPU gpu; //композиция
-	Display dis; //композиция
-	RAM* ram; //агрегирование
-	SSD* ssd; //агрегирование
-	friend class Print; //дружба
-public:
-	Laptop(const char* n)
-	{
-		name = n;
-	}
-	Laptop(const char* n, Mouse* m, Display d, CPU c, GPU g, RAM* r, SSD* s) :Laptop(n)
-	{
-		mouse = m;
-		dis = d;
-		cpu = c;
-		gpu = g;
-		ram = r;
-		ssd = s;
-	}
-};
 
 class CPU
 {
@@ -41,7 +16,7 @@ public:
 	}
 	void Show()
 	{
-		cout <<"CPU: " << name << endl<<endl;
+		cout << "CPU: " << name << endl << endl;
 	}
 };
 
@@ -136,12 +111,31 @@ public:
 	}
 };
 
+class Laptop
+{
+	string name;
+	Mouse* mouse; //агрегирование
+	CPU cpu; //композиция
+	GPU gpu; //композиция
+	Display dis; //композиция
+	RAM* ram; //агрегирование
+	SSD* ssd; //агрегирование
+	friend class Print; //дружба
+public:
+	Laptop(const char* n, Mouse* m, Display d, CPU c, GPU g, RAM* r, SSD* s) :mouse(m), dis(d), cpu(c), gpu(g), ram(r), ssd(s)
+	{
+		name = n;
+	}
+};
+
+
+
 class Print
 {
 public:
 	void Output(Laptop& obj)
 	{
-		cout << obj.name << endl;
+		cout << obj.name << endl << endl;
 		obj.dis.Show();
 		obj.cpu.Show();
 		obj.gpu.Show();
